@@ -28,8 +28,13 @@ function addTask(&$inpTasks){
     $newId = count($inpTasks);
     $inpTasks[] = new Task($newId, $newContent);
 };
+function deleteTask(&$inpTasks){
+$taskNum = readline("Which id do you wish to delete? \n");
+unset($inpTasks[$taskNum]);
+$inpTasks = array_values($inpTasks);
+};
 while (true){
-    $input = readline("1 = show all tasks, 2 = add a new task, n to exit \n");
+    $input = readline("1 = show all tasks, 2 = add a new task, 3 = deletetask, n to exit \n");
     switch($input){
         case "n":
            echo "You have exited \n";
@@ -37,10 +42,16 @@ while (true){
         case 1:
             echo "Show all tasks \n";
             show($tasks);
+            echo "---- Tasks have been shown \n";
             break;
         case 2:
             echo "Make a new task \n";
             addTask($tasks);
+            echo "---- Task has been made \n";
             break;
+        case 3:
+            echo "Delete a task \n";
+            deleteTask($tasks);
+            echo "---- Task has been deleted \n";
     }
 }
