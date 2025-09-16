@@ -11,6 +11,9 @@ class Task{
     public function display(){
         echo "\n $this->content \n";
     }
+    public function edit($newContent) {
+        $this->content = $newContent;
+    }
 }
 $tasks = [
     new Task(0, "Yappa"),
@@ -33,8 +36,17 @@ $taskNum = readline("Which id do you wish to delete? \n");
 unset($inpTasks[$taskNum]);
 $inpTasks = array_values($inpTasks);
 };
+
+function editTask(&$tasks){
+    $taskNum = readline("enter your task ID:");
+    if (isset($tasks[$taskNum])){
+        echo "Current name is: ". $tasks[$taskNum]->content."\n";
+        $newName = readline("Enter the new task: ");
+        $tasks[$taskNum]->edit($newName);
+    };
+}
 while (true){
-    $input = readline("1 = show all tasks, 2 = add a new task, 3 = deletetask, n to exit \n");
+    $input = readline("1 = show all tasks, 2 = add a new task, 3 = delete task, 4 = edit task, n to exit \n");
     switch($input){
         case "n":
            echo "You have exited \n";
@@ -53,5 +65,11 @@ while (true){
             echo "Delete a task \n";
             deleteTask($tasks);
             echo "---- Task has been deleted \n";
+            break;
+        case 4:
+            echo "Edit a task \n";
+            editTask($tasks);
+            echo "---- Task has been edited \n";
+            break;
     }
 }
